@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VCT Career RPG: from ranked grinder to world champion</title>
+<meta name="description" content="A free fan-made Valorant esports career sim. Climb the ladder, get scouted, join a pro team, master the meta and survive the drama.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root{--bg:#eef2f4;--fg:#121c26;--card:#fff;--ac:#00897b;--mu:#5d6b78;--bd:#cfd8de;--w:#0a8a4a;--l:#c43d3d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0d1520;--fg:#e6edf3;--card:#16212e;--ac:#2fd8c4;--mu:#8da0b1;--bd:#2a3a4b;--w:#3ddc84;--l:#ff6b6b}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0d1520;--fg:#e6edf3;--card:#16212e;--ac:#2fd8c4;--mu:#8da0b1;--bd:#2a3a4b;--w:#3ddc84;--l:#ff6b6b}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;min-height:100vh}
+main{max-width:760px;margin:0 auto;padding:14px}
+h1{font:800 26px/1 "Arial Narrow","Bahnschrift",Impact,sans-serif;letter-spacing:.5px;margin:0 0 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px}
+#st b{color:var(--ac)}#st div{margin:2px 0}.mu{color:var(--mu)}
+#log{height:38vh;min-height:200px;overflow:auto}#log div{padding:2px 0}
+.h{font-weight:700;margin-top:8px;border-top:1px solid var(--bd);padding-top:6px}.w{color:var(--w)}.l{color:var(--l)}.e{color:var(--ac);font-weight:600}
+#q{font-weight:700;margin-bottom:8px}
+#act{display:flex;flex-wrap:wrap;gap:8px}
+button,select,input{font:inherit;padding:9px 13px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
+button{cursor:pointer;font-weight:600}button:hover,button:focus-visible{border-color:var(--ac);outline:2px solid var(--ac);outline-offset:1px}
+button.p{background:var(--ac);color:#04201c;border-color:var(--ac)}
+details summary{cursor:pointer;font-weight:600}
+@media(prefers-reduced-motion:no-preference){#log div{animation:f .25s}@keyframes f{from{opacity:0}}}
+:root{--bg:#f6f1ff;--fg:#1c1033;--card:rgba(255,255,255,.74);--ac:#6d28d9;--mu:#6b6285;--bd:rgba(109,40,217,.2);--w:#0b8f5a;--l:#d6246e;--g1:rgba(124,77,255,.22);--g2:rgba(255,61,154,.16);--g3:rgba(25,227,209,.18);--grad:linear-gradient(135deg,#6d3df5,#d6246e)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a0612;--fg:#f4f0ff;--card:rgba(28,19,52,.66);--ac:#8ff3e6;--mu:#a79bc9;--bd:rgba(180,150,255,.24);--w:#34f5a0;--l:#ff6b95;--g1:rgba(124,77,255,.38);--g2:rgba(255,61,154,.24);--g3:rgba(25,227,209,.16);--grad:linear-gradient(135deg,#9b7bff,#ff5fae 55%,#ffb347)}}
+:root[data-theme=dark]{--bg:#0a0612;--fg:#f4f0ff;--card:rgba(28,19,52,.66);--ac:#8ff3e6;--mu:#a79bc9;--bd:rgba(180,150,255,.24);--w:#34f5a0;--l:#ff6b95;--g1:rgba(124,77,255,.38);--g2:rgba(255,61,154,.24);--g3:rgba(25,227,209,.16);--grad:linear-gradient(135deg,#9b7bff,#ff5fae 55%,#ffb347)}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif;background:radial-gradient(60rem 40rem at 8% -10%,var(--g1),transparent 60%),radial-gradient(50rem 36rem at 100% 0,var(--g2),transparent 55%),radial-gradient(44rem 30rem at 50% 115%,var(--g3),transparent 60%),var(--bg);background-attachment:fixed}
+main{max-width:860px;padding:18px 14px 40px}
+.hero{padding:34px 4px 22px}.tag{display:inline-block;padding:4px 12px;border:1px solid var(--bd);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);background:var(--card)}
+.hero h1{font:700 clamp(32px,7vw,56px)/1.05 "Space Grotesk",Inter,sans-serif;letter-spacing:-.02em;margin:14px 0 12px}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:60ch;font-size:17px;color:var(--mu);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.chips span{padding:6px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--card);font-weight:600;font-size:13px}
+.cta{display:inline-block;padding:12px 22px;border-radius:999px;background:var(--grad);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 8px 28px -8px rgba(214,36,110,.6)}
+.card{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:18px;box-shadow:0 10px 40px -18px rgba(80,30,160,.5)}
+#st div:first-child{font:700 18px "Space Grotesk",Inter,sans-serif}#st b{color:var(--ac)}
+#log div{padding:3px 8px;border-radius:8px}.h{border-top:0!important;background:linear-gradient(90deg,rgba(124,77,255,.22),transparent);border-left:3px solid var(--ac);padding:4px 8px!important;margin-top:8px!important}
+#q{font:700 17px "Space Grotesk",Inter,sans-serif}
+button,select,input{border-radius:999px;background:var(--card);border:1px solid var(--bd);transition:transform .15s,box-shadow .15s,border-color .15s}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(124,77,255,.8)}
+button.p{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 24px -10px rgba(214,36,110,.7)}
+#log{scrollbar-width:thin}.foot{font-size:12px;max-width:70ch}
+@media(prefers-reduced-motion:reduce){button{transition:none}button:hover{transform:none}}
+</style></head><body><main>
+<header class="hero"><span class="tag">Free fan-made career sim</span><h1>From ranked grinder to <span class="gt">world champion</span></h1><p>Climb the ladder, get scouted, sign with a pro team, master the meta and survive the drama. Your career, your calls.</p><div class="chips"><span>4 regions</span><span>30 agents</span><span>Best-of-3 series</span><span>Rivalries &amp; drama</span><span>Live meta</span></div><a class="cta" href="#play">Start your career ↓</a></header>
+<div id="play"></div><div class="card" id="st"></div>
+<div class="card" id="log" aria-live="polite"></div>
+<div class="card"><div id="q"></div><div id="act"></div></div>
+<details class="card"><summary>Agent mastery</summary><div id="ag"></div></details>
+<p class="mu foot"><button id="nw">New game</button> Autosaves in this browser. Unofficial fan project: not affiliated with or endorsed by Riot Games. Team ratings are rough estimates and rosters may be out of date.</p>
+</main>
+<script>
+const $=s=>document.querySelector(s),R=Math.random,ri=(a,b)=>a+Math.floor(R()*(b-a+1)),cl=(x,a,b)=>Math.max(a,Math.min(b,x)),pick=a=>a[ri(0,a.length-1)];
+const TI="Iron Bronze Silver Gold Platinum Diamond Ascendant Immortal".split(" ");
+const rk=r=>{let i=Math.min(24,r/100|0);return i>=24?"Radiant":TI[i/3|0]+" "+(i%3+1)},rx=r=>Math.min(24,r/100|0);
+const YR=35,CAL=[["Offseason",8],["Kickoff",3],["Masters 1",3],["Stage 1",7],["Masters 2",3],["Stage 2",7],["Champions",4]],RG={A:"Americas",E:"EMEA",P:"Pacific",C:"China"};
+const V="Paper Rex:84:P,Fnatic:83:E,Sentinels:80:A,G2 Esports:80:A,NRG:80:A,Gen.G:79:P,DRX:78:P,Team Heretics:78:E,T1:77:P,Team Liquid:77:E,Team Vitality:75:E,Cloud9:74:A,Karmine Corp:74:E,Rex Regum Qeon:74:P,FURIA:73:A,LOUD:72:A,100 Thieves:72:A,Natus Vincere:72:E,Team Secret:71:P,BBL Esports:70:E,FUT Esports:70:E,LEVIATAN:70:A,TALON:69:P,MIBR:68:A,Global Esports:68:P,Evil Geniuses:66:A,KRU Esports:66:A,ZETA DIVISION:66:P,EDward Gaming:72:C,Dragon Ranger Gaming:70:C,FunPlus Phoenix:68:C,Bilibili Gaming:67:C,Wolves Esports:66:C,JDG Esports:64:C,All Gamers:64:C,Nova Esports:63:C,Titan Esports Club:62:C,Trace Esports:62:C,TYLOO:60:C";
+const CN={A:"Nova Gaming,Crimson Tide,Apex Union,Iron Wolves",E:"Nordic Pulse,Iberian Storm,Vanta Five,Orbit Legion",P:"Sakura Rising,Lotus Gaming,Tiger Vanguard,Neon Reef",C:"Jade Dynasty,Silk Road,Thunder Lotus,Panda Strike"};
+const TEAMS=V.split(",").map(x=>{const[n,s,r]=x.split(":");return{n,s:+s,t:"vct",r}});
+for(const r in CN)CN[r].split(",").forEach((n,i)=>TEAMS.push({n,s:58-i*4,t:"c",r}));
+// Rosters are from memory (approx.) and change often: edit freely. Teams not listed get placeholder handles.
+const ROST={"Sentinels":"TenZ,zekken,Sacy,johnqt,Zellsis","Fnatic":"Alfajer,Boaster,Chronicle,Derke,Leo","Paper Rex":"f0rsakeN,Jinggg,d4v41,something,mindfreak","G2 Esports":"leaf,trent,valyn,jawgemo,JonahP","NRG":"s0m,Ethan,brawk,mada,skuba","Gen.G":"Meteor,t3xture,Karon,Munchkin,eKo","DRX":"Buzz,MaKo,Foxy9,Rb,Estrella","Team Heretics":"MiniBoo,RieNs,Wo0t,benjyfishy,AvovA","Team Liquid":"Sayf,nAts,Jamppi,keiko,Mistic","100 Thieves":"Asuna,bang,Cryo,Derrek,eeiu"};
+const HANDLES="Vex Kairo Zephyr Nyx Rogue Blitz Orion Sable Jinx Ryuu Mako Frost Echo Drift Havoc Lynx Pyro Tonic Wraith Zen".split(" ");
+const STY=["Aggro","Tactical","Economic"],PL={Rush:"Tactical",Utility:"Aggro",Default:"Economic"};
+const AGS={Duelist:"Jett Raze Reyna Phoenix Yoru Neon Iso Waylay Hush",Initiator:"Sova Breach Skye KAY/O Fade Gekko Tejo",Controller:"Omen Brimstone Viper Astra Harbor Clove Miks",Sentinel:"Cypher Killjoy Sage Chamber Deadlock Vyse Veto"},AGR={};
+for(const r in AGS)AGS[r]=AGS[r].split(" "),AGS[r].forEach(a=>AGR[a]=r);
+const MP={Ascent:["Controller","Sentinel"],Bind:["Duelist","Controller"],Haven:["Initiator","Duelist"],Split:["Sentinel","Initiator"],Lotus:["Controller","Initiator"],Sunset:["Duelist","Sentinel"],Icebox:["Sentinel","Duelist"],Abyss:["Initiator","Controller"]};
+const KEY={Duelist:"aim",Initiator:"sense",Controller:"comms",Sentinel:"mental"},ST=["aim","sense","comms","clutch","mental"];
+const DF={easy:{o:0,g:0},normal:{o:7,g:.25},hard:{o:12,g:.45}},MOD={full:0,force:-12,save:-35,pistol:0},CO={full:3900,force:2200,save:0,pistol:800},SAL={c:150,vct:500},LEN={c:6,vct:8};
+let P=null;
+const ovr=()=>{const s=P.stats;return Math.round(s.aim*.3+s.sense*.25+s.comms*.15+s.clutch*.15+s.mental*.15)};
+const age=()=>18+((P.week-1)/YR|0),best=()=>Math.max(...Object.values(P.ag));
+function gain(k,lo,hi){let a=ri(lo,hi);if(P.team&&R()<P.team.f*.08)a++;if(P.energy<25)a>>=1;if(R()<DF[P.diff].g)a=Math.max(0,a-1);const v=P.stats[k];if(v>=60&&R()<.4)a=Math.max(0,a-1);if(v>=80&&R()<.7)a=0;P.stats[k]=cl(v+a,1,P.cap);return a}
+function mast(a,n){P.ag[a]=cl(P.ag[a]+(P.ag[a]>=70?Math.max(1,n>>1):n),0,99)}
+function log(m,c){const d=document.createElement("div");d.textContent=m;if(c)d.className=c;$("#log").append(d);$("#log").scrollTop=1e9}
+function ask(q,o){$("#q").textContent=q;const a=$("#act");a.innerHTML="";o.forEach(([t,f,p])=>{const b=document.createElement("button");b.textContent=t;if(p)b.className="p";b.onclick=()=>{a.innerHTML="";f()};a.append(b)})}
+function sv(){try{localStorage.setItem("vctrpg",JSON.stringify(P))}catch(e){}}
+function stat(){if(!P)return;const s=P.stats,t=P.team,ph=phase();$("#st").innerHTML=`<div><b>${P.name}</b> (${P.role}, ${RG[P.reg]}, ${P.diff}) · Age ${age()} · Year ${ordn()}</div><div>Phase: <b>${ph.n}</b> (week ${ph.i+1}/${ph.l}) · Rank <b>${rk(P.rr)}</b> · ${t?t.n+" ("+(t.t=="c"?"challengers":"VCT")+") "+P.sw+"-"+P.sl+" · $"+t.sal+"/wk · "+t.y+"y left":"Free agent"}</div><div>${ST.map(k=>k[0].toUpperCase()+k.slice(1)+" <b>"+s[k]+"</b>").join(" · ")} · OVR <b>${ovr()}</b></div><div>Form: <b>${frm()}</b> · Controversy heat: <b>${P.heat||0}</b></div><div class="e">Meta: ${P.meta.a} is dominating (${P.meta.w}w left). Your mastery: ${P.ag[P.meta.a]}</div><div>Energy ${P.energy} · Morale ${P.morale} · Chemistry ${P.chem} · $${P.money} · Rep ${P.rep} · Followers ${P.fol}</div>${t?`<div class="mu">Teammates: ${t.mates.map(m=>m.n+" ("+m.r+", "+m.o+")").join(", ")}</div>`:""}${P.riv.length?`<div class="mu">Rivalries: ${P.riv.map(r=>r.n+" (heat "+r.h+")").join(", ")}</div>`:""}`;
+$("#ag").innerHTML=Object.entries(P.ag).sort((a,b)=>b[1]-a[1]).map(([a,v])=>`<div>${a} <span class="mu">${AGR[a]}</span>: <b>${v}</b></div>`).join("")}
+const chain=f=>{let i=0;const n=()=>{if(i<f.length)f[i++](n)};n()};
+// ---------- match ----------
+function playMatch(opp,label,cb){
+ const t=P.team,mp=pick(Object.keys(MP)),D=DF[P.diff];
+ const base=t.s*.75+ovr()*.25+(P.chem-50)*.1+(P.morale-50)*.05-(P.energy<25?10:0),th=opp.s+D.o+(R()+R()+R()-1.5)*3;
+ log(`${label}: ${t.n} vs ${opp.n} on ${mp} (rating ${base|0} vs ${th|0}). Map favors ${MP[mp].join(" / ")}.`,"h");
+ ask("Pick your agent",Object.entries(P.ag).sort((a,b)=>b[1]-a[1]).filter((e,i)=>i<5||e[0]==P.meta.a).map(([a,v])=>[`${a} (${v})`+(MP[mp].includes(AGR[a])?" ★map":"")+(a==P.meta.a?" ★META":""),()=>start(a)]));
+ function start(ag){let mine=base+(P.ag[ag]-30)*.08+(MP[mp].includes(AGR[ag])?2:0)+(R()-.5)*8+(P.meta.a==ag?2+P.ag[ag]/100*6:-1)+(P.form||0)*.4-Math.min(P.heat||0,10)*.3;const rv=P.riv.find(r=>r.n==opp.n),sty=STY[[...opp.n].reduce((a,c)=>a+c.charCodeAt(0),0)%3],hint=R()<P.stats.sense/100+.3?sty:pick(STY);log("You lock "+ag+(rv?". RIVALRY MATCH: the hype is huge!":"."));if(rv)mine+=2;
+  ask(`Scouting says ${opp.n} play ${hint.toLowerCase()}-style. Game plan?`,Object.keys(PL).map(k=>[k,()=>{mine+=PL[k]==sty?3:-1;log("Plan: "+k+(PL[k]==sty?" (it counters them!)":""));ask("Match mode",[["Watch live",()=>run(true),1],["Sim instantly",()=>run(false)]])}]));
+  function run(live){let x=0,y=0,rn=0,mc=800,oc=800,ml=0,ol=0;
+   const nxt=()=>{rn++;const pi=rn==1||rn==13;if(rn==13){mc=oc=800;ml=ol=0}if(rn>24)mc=oc=9e3;
+    const ob=pi?"pistol":oc>=3900?"full":oc>=2200&&R()<.5?"force":"save";
+    const fin=(mb,sh)=>{const w=R()<cl(.5+(mine-th)/115+(MOD[mb]-MOD[ob])/100+sh,.08,.92);
+     mc=Math.min(9e3,mc-CO[mb]+(w?3e3:1900+500*Math.min(ml,2)));oc=Math.min(9e3,oc-CO[ob]+(w?1900+500*Math.min(ol,2):3e3));
+     if(w){x++;ml=0;ol++}else{y++;ol=0;ml++}
+     if(live)log(`R${rn} ${mb} vs ${ob}: ${w?"WIN":"LOSS"} ${x}-${y}${w&&mb=="save"&&ob!="save"?" · eco round stolen!":""}`,w?"w":"l");
+     if(rn==12)log(`Halftime ${x}-${y}`,"mu");
+     if(Math.max(x,y)>=13&&Math.abs(x-y)>=2||x+y>=30){if(x==y)x++;return end(x,y)}
+     live?ask("Round "+(rn+1),[["Next round",nxt,1],["Sim to end",()=>{live=false;nxt()}]]):nxt()};
+    const go=mb=>{if(live&&!pi&&Math.abs(x-y)<=3&&R()<.15){const s=P.stats;ask("CLUTCH: you are 1v2 with the spike down.",[["Take the duel",()=>{const ok=R()<(s.clutch*.6+s.mental*.2)/100+.1;log(ok?"You win the duel!":"You peek too hard and get traded.","e");fin(mb,ok?.25:-.2)}],["Play it safe",()=>fin(mb,(s.sense-40)/400)],["Call a trade",()=>fin(mb,(s.comms-50)/300)]])}else fin(mb,0)};
+    if(pi)go("pistol");else if(mc>=3900)go("full");else if(mc>=2200){live?ask(`R${rn} ($${mc}): buy?`,[["Force buy",()=>go("force")],["Save",()=>go("save")]]):go(R()<.5?"force":"save")}else go("save")};
+   const end=(x,y)=>{const win=x>y;log(`FINAL ${t.n} ${x}-${y} ${opp.n}: ${win?"VICTORY":"DEFEAT"}`,win?"w h":"l h");
+    const acs=cl(Math.round(150+(ovr()*.5+(R()+R()+R()-1.5)*14+(win?15:0))*2.2),80,400);log(`Your ACS: ${acs}`+(acs>=300?" (MVP!)":""));
+    if(acs>=250&&R()<.4){const k=pick(ST);gain(k,1,1);log("Great game: +1 "+k)}
+    mast(ag,ri(1,3));P.form=cl((P.form||0)+(win?2:-2)+(acs>=300?1:acs<150?-1:0),-10,10);P.morale=cl(P.morale+(win?8:-6),0,100);P.chem=cl(P.chem+(win?3:-1),0,100);
+    if(win){P.rep+=opp.s+D.o>mine?3:1;const z=t.t=="vct"?300:100;P.money+=z;log("Win bonus +$"+z)}if(rv){if(win){P.rep+=4;P.fol+=rv.h*60;rv.h++;log("Rivalry win! Fans go wild: +"+(rv.h-1)*60+" followers.","e")}else P.morale=cl(P.morale-4,0,100)}P.fol+=win?ri(5,40):ri(0,10);stat();cb(win)};
+   nxt()}}}
+function bracket(name,n,cb){const o=TEAMS.filter(t=>t.t=="vct"&&t.n!=P.team.n).sort((a,b)=>b.s-a.s).slice(0,10).sort(()=>R()-.5).slice(0,n).sort((a,b)=>a.s-b.s).map(t=>({...t,s:t.s+(n==4?9:5)}));let w=0,i=0;
+ const nx=()=>{if(i>=n)return cb(w);series(o[i],`${name} round ${++i}/${n}`,win=>{if(win){w++;nx()}else{log("Eliminated.","l");cb(w)}})};nx()}
+// ---------- career ----------
+function mates(t){const b=(ROST[t.n]||"").split(",").filter(Boolean),p=(b.length>=4?b:HANDLES).slice().sort(()=>R()-.5).slice(0,4),rl=Object.keys(AGS).filter(r=>r!=P.role);return p.map((n,i)=>({n,r:rl[i]||"Flex",o:cl(Math.round(t.s+ri(-6,8)),30,95)}))}
+function join(t){P.team={n:t.n,s:t.s,t:t.t,r:t.r,sal:t.sal,y:t.y,f:t.f,mates:mates(t)};P.chem=40;P.sw=P.sl=P.games=0;log(`You signed with ${t.n} for ${t.y} year(s) at $${t.sal}/wk.`,"e");log("Teammates: "+P.team.mates.map(m=>m.n+" ("+m.r+")").join(", "),"e")}
+function offers(tier,n,head,cb,renew){const lim=ovr()+(tier=="c"?18:12),own=x=>P.rep>=80||x.r==P.reg;
+ let pool=TEAMS.filter(t=>t.t==tier&&own(t)&&!(P.team&&P.team.n==t.n)&&t.s<=lim).sort(()=>R()-.5).slice(0,n);
+ if(!pool.length)pool=TEAMS.filter(t=>t.t==tier&&t.r==P.reg).sort((a,b)=>a.s-b.s).slice(0,2);
+ const os=pool.map(t=>({...t,sal:Math.round(t.s*(tier=="c"?1.6:7)+P.rep*2),y:ri(1,3),f:ri(1,3)}));
+ if(renew)os.unshift({...P.team,sal:Math.round(P.team.sal*1.1),y:ri(1,2)});
+ ask(head,os.map(o=>[`${o.n} · ${RG[o.r]} · rating ${o.s} · $${o.sal}/wk · ${o.y}y · facilities ${"★".repeat(o.f)}`,()=>{if(o.mates){P.team.sal=o.sal;P.team.y=o.y}else join(o);cb()}]).concat([["Decline",()=>{if(renew)P.team=null;cb()}]]))}
+function scout(cb){if(P.team)return cb();const i=rx(P.rr);if(R()>(i>=21?.3:0)+Math.min(.3,P.fol/12000)+P.rep*.004)return cb();
+ const tier=P.rep>=45?"vct":"c",host=pick(TEAMS.filter(t=>t.t==tier&&t.r==P.reg));log(`${host.n} invites you to a tryout!`,"h");
+ const tr=(l,k)=>[l,()=>{const ok=R()<k()+.2;log(ok?"The staff loved what they saw.":"They passed this time.",ok?"w":"l");if(ok)offers(tier,3,"Contract offers after the tryout",cb);else{P.morale=cl(P.morale-5,0,100);cb()}}];
+ ask("Tryout: how do you play?",[tr("Show off mechanics",()=>P.stats.aim/100),tr("Play for the team",()=>(P.stats.comms+P.stats.sense)/200),tr("Clutch under pressure",()=>(P.stats.clutch+P.stats.mental)/200)])}
+function phase(){let w=(P.week-1)%YR;for(const[n,l]of CAL){if(w<l)return{n,i:w,l};w-=l}}
+const ordn=()=>1+((P.week-1)/YR|0);
+function series(opp,label,cb){const t=P.team;let a=0,b=0,g=0;
+ const nx=()=>{g++;playMatch(opp,`${label} - Map ${g} (${a}-${b})`,w=>{w?a++:b++;log(`Series: ${t.n} ${a}-${b} ${opp.n}`,"h");if(a==2||b==2){log(a>b?"SERIES WON!":"Series lost.",a>b?"w h":"l h");cb(a>b)}else nx()})},
+ auto=()=>{const base=t.s*.75+ovr()*.25+(P.chem-50)*.1+(P.morale-50)*.05-(P.energy<25?10:0),p=cl(.5+(base-opp.s-DF[P.diff].o)/60,.1,.9);while(a<2&&b<2)R()<p?a++:b++;const w=a>b;log(`${label}: ${t.n} ${a}-${b} ${opp.n} (auto-sim)`,w?"w h":"l h");P.morale=cl(P.morale+(w?8:-6),0,100);P.chem=cl(P.chem+(w?3:-1),0,100);if(w){P.rep++;P.money+=t.t=="vct"?300:100}P.form=cl((P.form||0)+(w?2:-2),-10,10);P.fol+=ri(0,30);stat();cb(w)};
+ ask(`${label}: best-of-3 vs ${opp.n}`,[["Play map by map",nx,1],["Auto-sim series",auto]])}
+function wk(cb){const ph=phase(),t=P.team,n=ph.n,last=ph.i==ph.l-1;
+ if(ph.i==0){P.sw=P.sl=P.games=0;log(`=== Year ${ordn()}: ${n} begins ===`,"h");if(n=="Offseason"){P.yw=0;P.q={}}}
+ if(!t)return cb();
+ if(n=="Offseason"){if(ph.i==0){t.y--;if(t.y<=0)return offers(t.t,3,"Your contract expired. Choose your next deal.",cb,1)}return cb()}
+ if(/Kickoff|Stage/.test(n)){const o=pick(TEAMS.filter(x=>x.t==t.t&&x.r==t.r&&x.n!=t.n));return series(o,n+" match",w=>{P[w?"sw":"sl"]++;P.yw+=w?1:0;P.games++;last?lg(n,cb):cb()})}
+ if(!last){log(n+" week: bootcamp and travel.","mu");gain(pick(ST),0,1);return cb()}
+ if(t.t=="c"){log(n+" goes on without you. Keep building your name.","mu");return cb()}
+ const key={"Masters 1":"m1","Masters 2":"m2","Champions":"ch"}[n],N=n=="Champions"?4:3;
+ if(!P.q[key]){log(`You did not qualify for ${n}.`,"l");return cb()}
+ bracket(n,N,m=>{P.rep+=m*(N==4?15:8);if(m==N){P.titles.push(n+" Y"+ordn());log(n.toUpperCase()+" CHAMPION!","e h");P.rep+=N==4?60:25;P.fol+=N==4?5000:1500;if(N==3)P.q.mw=1}cb()})}
+function lg(n,cb){const t=P.team,w=P.sw;log(`${n} finished: ${w}-${P.sl}`,"h");
+ if(t.t=="vct"){if(n=="Kickoff"){P.q.m1=w>=2;log(P.q.m1?"Qualified for Masters 1!":"Missed Masters 1.",P.q.m1?"e":"l")}
+  else if(n=="Stage 1"){P.q.m2=w>=5;log(P.q.m2?"Qualified for Masters 2!":"Missed Masters 2.",P.q.m2?"e":"l")}
+  else{P.q.ch=w>=5||!!P.q.mw;if(P.q.ch)log("Qualified for Champions!","e");else if(P.yw<=7){log("Terrible year. You were released.","l");P.team=null;P.rep=Math.max(0,P.rep-5)}else log("Missed Champions.","l")}
+  return cb()}
+ if(n=="Stage 2"){if(P.yw>=10){P.rep+=8;log("A great year! VCT teams are calling.","e");return offers("vct",3,"VCT offers",cb)}log("Missed promotion. Try again next year.","l")}cb()}
+function social(){const o=pick(TEAMS.filter(t=>t.t=="vct"&&t.r==P.reg&&(!P.team||t.n!=P.team.n))),fin=(m,f)=>{log(m,"e");P.energy=cl(P.energy-5,0,100);P.left--;P.fol=Math.max(0,Math.round(P.fol+f));stat();menu()};
+ ask("Post on social media",[["Highlight clip",()=>{const g=R()<ovr()/110;if(g)P.rep+=2;fin(g?"Your clip blows up! Rep +2.":"Decent reach, nothing crazy.",g?ri(150,500):ri(10,60))}],
+ [`Hot take: ${o.n} are overrated`,()=>{const ok=R()<(P.stats.mental+P.stats.comms)/200+.15,r=P.riv.find(x=>x.n==o.n);r?r.h++:P.riv.push({n:o.n,h:1});if(ok)P.rep+=3;else P.morale=cl(P.morale-6,0,100);fin(`${o.n} fans pile in. Rivalry started${ok?" and you handled the heat. Rep +3.":", and the backlash stings. Morale -6."}`,ok?ri(300,900):ri(-100,100))}],
+ ["Wholesome post for fans",()=>{P.morale=cl(P.morale+6,0,100);P.chem=cl(P.chem+3,0,100);fin("Positive vibes. Morale +6, chemistry +3.",ri(40,150))}],
+ ["Sponsor shoutout",()=>{const c=Math.round(P.fol/25)+20;P.money+=c;fin(`Paid post: +$${c}.`,ri(0,30))}],["Back",menu]])}
+function autoWeek(){while(P.left>0&&P.energy>0)act(P.energy<35?5:pick([4,3,P.team?2:1,1,6]),pick(Object.keys(AGR)),1);endWeek()}
+// ---------- story events ----------
+const A=(k,v)=>P.arcs[k]=v;
+const H=n=>P.heat=Math.max(0,(P.heat||0)+n);
+const EV=[
+{a:"rival",s:0,c:()=>P.week>3,t:"A rising player called Kairo clips your worst round and posts it with a mocking caption.",o:[["Clap back",()=>{A("rival",1);if(R()<P.stats.mental/100+.1){P.rep+=3;return"Perfect reply. Rep +3. Kairo is now your rival."}P.morale-=8;return"It backfires. Morale -8. The feud begins."}],["Ignore it",()=>{A("rival",1);gain("mental",1,1);return"Mental +1. Kairo is watching your career."}]]},
+{a:"rival",s:1,c:()=>P.team,t:"Kairo signed with another org and challenges you to a 1v1 showdown.",o:[["Study their VODs first",()=>{A("rival",2);P.energy-=10;gain("sense",2,2);return"Sense +2. You know their habits now."}],["Accept right now",()=>{A("rival",2);if(R()<ovr()/110){P.rep+=5;return"You win the 1v1 on stream! Rep +5."}P.morale-=6;return"You lose the 1v1. Morale -6."}]]},
+{a:"rival",s:2,c:()=>P.team&&P.team.t=="vct",t:"Kairo offers a truce before the big stage.",o:[["Make peace",()=>{A("rival",3);P.rep+=5;gain("mental",2,2);return"Respect earned. Rep +5, mental +2."}],["Keep the feud alive",()=>{A("rival",3);gain("clutch",2,2);P.morale-=3;return"Anger fuels you. Clutch +2, morale -3."}]]},
+{a:"drama",s:0,c:()=>P.team,t:"A teammate starts flaming you in comms after a loss.",o:[["Talk it out",()=>{A("drama",1);if(R()<P.stats.comms/100+.2){P.chem+=8;return"You calm things down. Chemistry +8."}P.chem-=5;P.morale-=5;return"It escalates. Chemistry -5, morale -5."}],["Ignore it",()=>{A("drama",1);P.morale-=6;return"You mute and move on. Morale -6."}]]},
+{a:"drama",s:1,c:()=>P.team&&P.chem<70,t:"The tilt continues. The coach asks you to weigh in on the roster.",o:[["Push to bench them",()=>{A("drama",2);P.chem+=8;P.team.s=Math.max(30,P.team.s-1);return"Chemistry +8, but team rating -1."}],["Call a team meeting",()=>{A("drama",2);if(R()<P.stats.comms/100+.15){P.chem+=12;return"The air clears. Chemistry +12."}P.chem-=3;return"Nothing changes. Chemistry -3."}]]},
+{a:"mentor",s:0,c:()=>P.team&&P.rep>=8,t:"A retired VCT legend offers to coach you for $200.",o:[["Accept",()=>{A("mentor",1);P.money-=200;gain("sense",3,3);AGS[P.role].forEach(a=>mast(a,4));return"Sense +3, mastery +4 on all "+P.role+" agents."}],["Decline",()=>{A("mentor",1);P.morale+=3;return"You trust your own path. Morale +3."}]]},
+{a:"mentor",s:1,c:()=>P.rep>=25,t:"Your mentor says every great player needs a signature agent.",get o(){return Object.keys(AGR).sort(()=>R()-.5).slice(0,3).map(a=>[a,()=>{A("mentor",2);mast(a,12);return a+" becomes your signature agent. Mastery +12."}])}},
+{c:()=>P.rep>=5,t:"A peripheral brand offers you a sponsorship.",o:[["Accept ($200, -15 energy)",()=>{P.money+=200;P.energy-=15;return"+$200."}],["Decline",()=>{P.morale+=3;return"You keep your focus. Morale +3."}]]},
+{c:()=>1,t:"A clip of you goes viral!",o:[["Enjoy it",()=>{P.rep+=4;P.money+=60;return"Rep +4, +$60."}]]},
+{c:()=>1,t:"Your wrist feels sore.",o:[["Rest it (-10 energy)",()=>{P.energy-=10;return"You rest. All good."}],["Play through it",()=>{P.stats.aim=Math.max(1,P.stats.aim-2);return"Aim -2 from the strain."}]]},
+{c:()=>P.morale<45,t:"You feel burnt out and the game has stopped being fun.",o:[["See a sports psychologist ($150)",()=>{P.money-=150;P.morale+=20;gain("mental",2,2);return"Morale +20, mental +2."}],["Take a weekend off",()=>{P.energy+=25;P.morale+=10;return"Energy +25, morale +10."}]]},
+{c:()=>P.riv.length>0,t:"Fans of a rival team are dogpiling your replies.",o:[["Fire back",()=>{P.fol+=ri(100,400);P.morale-=4;return"Followers up, morale -4."}],["Mute and train",()=>{gain("mental",1,2);return"Mental up."}]]},
+{c:()=>P.rep>=3,t:"A clip of you rage-quitting a scrim leaks online and the internet is loud about it.",o:[["Double down with a spicy reply",()=>{H(3);P.stats.mental=Math.max(1,P.stats.mental-1);P.fol+=ri(300,800);P.rep+=1;return"You go viral for the drama. Followers up, heat +3, mental -1."}],["Apologize and move on",()=>{P.morale-=3;if(R()<P.stats.comms/100+.2){P.rep+=1;return"The apology lands well. Morale -3, rep +1."}H(1);return"Mixed reaction. Morale -3, heat +1."}],["Say nothing and train",()=>{H(1);gain("mental",1,1);return"Mental +1, heat +1 while speculation fades."}]]},
+{c:()=>P.rep>=8,t:"A drama channel offers $300 for an interview trashing your old org.",o:[["Do the interview",()=>{P.money+=300;P.fol+=ri(500,1200);H(4);P.stats.mental=Math.max(1,P.stats.mental-1);if(P.team)P.chem-=6;return"Cash and clout, but heat +4, mental -1"+(P.team?", chemistry -6.":".")}],["Turn it down",()=>{gain("mental",1,1);P.rep+=1;return"Class act. Mental +1, rep +1."}]]},
+{c:()=>P.rep>=5,t:"You get chat-restricted after flaming in ranked. Fans are split.",o:[["Argue it was justified",()=>{H(2);P.stats.mental=Math.max(1,P.stats.mental-1);P.fol+=ri(100,500);return"Your fans cheer, critics pile on. Heat +2, mental -1."}],["Accept it and reflect",()=>{gain("mental",1,2);P.morale-=2;return"Mental up, morale -2."}]]},
+{c:()=>P.team,t:"Teammates invite you to a big night out right before a major match.",o:[["Go and party",()=>{P.morale+=10;P.energy-=20;P.chem+=4;H(1);P.form=Math.max(-10,(P.form||0)-2);P.stats.mental=Math.max(1,P.stats.mental-1);return"Great vibes, but you are drained. Form -2, heat +1, mental -1."}],["Stay in and review",()=>{gain("sense",1,1);P.chem-=2;return"Sense +1, chemistry -2."}]]},
+{bl:1,c:()=>(P.heat||0)>=5,t:"The controversy snowballs: sponsors are nervous and headlines call you toxic.",o:[["Hire a PR firm ($300)",()=>{P.money-=300;H(-4);return"Heat -4. Your image stabilizes."}],["Take a media break",()=>{H(-2);P.energy+=15;P.fol=Math.round(P.fol*.95);return"Heat -2, energy +15, some followers drift away."}],["Ride it out",()=>{P.rep=Math.max(0,P.rep-5);P.morale-=8;H(-1);return"Rep -5, morale -8, heat -1."}]]},
+{c:()=>P.team&&P.rep>=60,t:"Transfer rumors say a bigger org wants you.",o:[["Stay loyal",()=>{P.chem+=6;return"Chemistry +6."}],["Listen to offers",()=>{P.rep+=5;return"Rep +5. Teams noticed."}]]}];
+function story(cb){if(R()>.4)return cb();const ok=EV.filter(e=>(!e.a||(P.arcs[e.a]||0)==e.s)&&e.c());if(!ok.length)return cb();const e=ok.find(x=>x.bl)||pick(ok);log("EVENT: "+e.t,"h");
+ ask("What do you do?",e.o.map(([l,f])=>[l,()=>{log(f(),"e");["energy","morale","chem"].forEach(k=>P[k]=cl(P[k],0,100));stat();cb()}]))}
+// ---------- weekly loop ----------
+function act(k,ag,nm){const L={1:()=>{const o=20+rx(P.rr)*2.5,me=ovr()+(P.morale-50)*.1+(best()-30)*.08-(P.energy<25?10:0),w=R()<cl(.5+(me-o)/60,.15,.85),b=rk(P.rr),d=w?ri(16,26):-ri(12,20);P.rr=cl(P.rr+d,0,2499);P.energy-=15;P.morale=cl(P.morale+(w?3:-3),0,100);log(`Ranked ${w?"WIN":"LOSS"} (${d>0?"+":""}${d} RR): ${rk(P.rr)}${b!=rk(P.rr)?" (from "+b+")":""}`,w?"w":"l")},
+2:()=>{P.energy-=15;P.chem=cl(P.chem+4,0,100);const k=pick(["sense","comms"]);log(`Scrims: chemistry +4, ${k} +${gain(k,0,2)}`)},
+3:()=>{P.energy-=10;log(`VOD review: sense +${gain("sense",1,3)}, mental +${gain("mental",0,1)}`)},
+4:()=>{P.energy-=12;log(`Aim training: aim +${gain("aim",1,3)}, clutch +${gain("clutch",0,1)}`)},
+5:()=>{P.energy+=35;P.morale=cl(P.morale+5,0,100);log("You rest and recharge.")},
+6:()=>{P.energy-=10;const c=ri(30,80)+P.rep*2;P.money+=c;P.rep++;log(`Stream: +$${c}, +1 rep, comms +${gain("comms",0,1)}`)},
+7:()=>{P.energy-=12;const b=P.ag[ag];mast(ag,ri(3,6));log(`Practiced ${ag}: mastery ${b} to ${P.ag[ag]}`)}};
+ L[k]();P.energy=cl(P.energy,0,100);P.left--;stat();if(P.energy<=0){log("You are burnt out! Forced rest.","l");P.energy=30;P.morale=cl(P.morale-10,0,100);P.left=0}if(!nm)menu()}
+function menu(){if(P.done||age()>=31)return ending();stat();sv();
+ if(P.left<=0)return ask(`Week ${P.week}: actions used.`,[["End week",endWeek,1]]);
+ const a=$("#act");ask(`Week ${P.week}: choose an action (${P.left} left)`,[["Solo queue",()=>act(1)],...(P.team?[["Scrims",()=>act(2)]]:[]),["VOD review",()=>act(3)],["Aim training",()=>act(4)],["Rest",()=>act(5)],["Stream",()=>act(6)],["Post on social",social],["Auto week",autoWeek,1],["End week",endWeek]]);
+ const s=document.createElement("select");s.setAttribute("aria-label","Agent to practice");s.innerHTML=Object.keys(AGR).map(g=>`<option>${g}</option>`).join("");const b=document.createElement("button");b.textContent="Practice agent";b.onclick=()=>{a.innerHTML="";act(7,s.value)};a.append(s,b)}
+function frm(){const f=P.form||0;return(f>=6?"On fire":f>=2?"Hot":f<=-6?"Slump":f<=-2?"Cold":"Steady")+" ("+(f>0?"+":"")+f+")"}
+function metaTick(){if(--P.meta.w>0)return;const old=P.meta.a;let a;do a=pick(Object.keys(AGR));while(a==old);P.meta={a,w:ri(3,6)};log(`META SHIFT: ${a} is taking over the pro scene for about ${P.meta.w} weeks. Players who have mastered ${a} perform better.`,"e h")}
+function endWeek(){chain([scout,wk,story,cb=>{if(P.team)P.money+=P.team.sal;P.energy=cl(P.energy+20,0,100);P.week++;P.left=3;P.form=Math.round((P.form||0)*.8);if(P.week%2==0)H(-1);metaTick();cb()},menu])}
+function ending(){stat();const s=P.stats,t=P.titles;const e=t.some(x=>x.startsWith("CHAMP"))?"You retire as a world champion. Your jersey hangs in the rafters.":s.sense>=70?"You become a respected head coach, shaping the next generation.":P.rep>=150?"You go full-time streamer with a loyal community.":"You hang up the mouse and open a gaming cafe. No regrets.";
+ log(`CAREER OVER. Peak rank: ${rk(P.peak||P.rr)}, OVR ${ovr()}, titles: ${t.join(", ")||"none"}, money $${P.money}. ${e}`,"e h");ask("Play again?",[["New game",setup,1]]);try{localStorage.removeItem("vctrpg")}catch(x){}}
+// ---------- setup ----------
+function setup(){$("#log").innerHTML="";P=null;$("#st").innerHTML='<span class="mu">Start your career as an unknown ranked player.</span>';$("#ag").innerHTML="";
+ const q=$("#q"),a=$("#act");q.textContent="Create your player";a.innerHTML='<input id="nm" placeholder="In-game name" maxlength="14"><select id="rl">'+Object.keys(AGS).map(r=>`<option>${r}</option>`).join("")+'</select><select id="rg"><option value="A">Americas</option><option value="E">EMEA</option><option value="P">Pacific</option><option value="C">China</option></select><select id="df"><option>easy</option><option selected>normal</option><option>hard</option></select><button class="p" id="go">Start career</button>';
+ $("#go").onclick=()=>{const role=$("#rl").value,st={};ST.forEach(k=>st[k]=58);st[KEY[role]]+=8;const ag={};for(const r in AGS)AGS[r].forEach(g=>ag[g]=r==role?ri(30,45):ri(10,18));
+  P={name:$("#nm").value.trim()||"Rookie",role,diff:$("#df").value,week:1,season:1,stats:st,energy:100,morale:70,money:500,rep:0,rr:1800,peak:1800,team:null,chem:50,sw:0,sl:0,games:0,titles:[],done:0,cap:ri(80,95),sd:false,left:3,arcs:{},ag,reg:$("#rg").value,fol:200,riv:[],q:{},yw:0,meta:{a:pick(Object.keys(AGR)),w:ri(3,6)}};
+  log("Age 18, Ascendant 1 and rising. Reach Immortal or build a following to earn tryouts, then chase Champions.","e");menu()}}
+$("#nw").onclick=()=>{if(confirm("Start a new game? Current progress will be lost."))setup()};
+(function(){let s=null;try{s=JSON.parse(localStorage.getItem("vctrpg"))}catch(e){}
+ if(s&&s.stats&&s.reg){P=s;Object.keys(AGR).forEach(a=>{if(P.ag[a]==null)P.ag[a]=ri(5,12)});if(!P.meta)P.meta={a:pick(Object.keys(AGR)),w:ri(3,6)};log("Welcome back, "+P.name+"!","e");menu()}else setup()})();
+setInterval(()=>{if(P)P.peak=Math.max(P.peak||0,P.rr)},2000);
+</script></body></html>
